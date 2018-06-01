@@ -14,7 +14,7 @@ var yargs = require('yargs')
         },
         format: {
             alias : 'f',
-            default: 'all' // 'short'
+            default: 'all' // 'short' or 'exclude'
         }
     })
     .array('baseDir')
@@ -359,12 +359,15 @@ taim('Total Processing', bluebird.all([
             return licenseInfo.name.toLowerCase();
         }).map(licenseInfo => {
             let licenseText = options.format === 'all' ? licenseInfo.licenseText : '';
+             if (options.format = 'exclude' && licenseInfo.license == 'MIT') {
+                 return '';
+             }
             return [licenseInfo.name,`${licenseInfo.version} <${licenseInfo.url}>`, `authors: ${licenseInfo.authors}`,
                     `license: ${licenseInfo.license}`,  licenseText || ''].join(os.EOL);
         }).value();
-
+        
         var attribution = attributionSequence.join(`${os.EOL}${os.EOL}******************************${os.EOL}${os.EOL}`);
-
+       
         var headerPath = path.join(options.outputDir, 'header.txt');
         
         if (jetpack.exists(headerPath)) {
