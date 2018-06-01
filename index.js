@@ -11,6 +11,10 @@ var yargs = require('yargs')
         baseDir: {
             alias: 'b',
             default: process.cwd(),
+        },
+        format: {
+            alias : 'f',
+            default: 'all' // 'short'
         }
     })
     .array('baseDir')
@@ -309,7 +313,8 @@ function getBowerLicenses() {
 // sanitize inputs
 var options = {
     baseDir: [],
-    outputDir: path.resolve(yargs.argv.outputDir)
+    outputDir: path.resolve(yargs.argv.outputDir),
+    format: yargs.argv.format
 };
 
 for (var i = 0; i < yargs.argv.baseDir.length; i++) {
@@ -353,8 +358,9 @@ taim('Total Processing', bluebird.all([
         }).sortBy(licenseInfo => {
             return licenseInfo.name.toLowerCase();
         }).map(licenseInfo => {
+            let licenseText = options.format === 'all' ? licenseInfo.licenseText : '';
             return [licenseInfo.name,`${licenseInfo.version} <${licenseInfo.url}>`, `authors: ${licenseInfo.authors}`,
-                    `license: ${licenseInfo.license}`,  licenseInfo.licenseText || ''].join(os.EOL);
+                    `license: ${licenseInfo.license}`,  licenseText || ''].join(os.EOL);
         }).value();
 
         var attribution = attributionSequence.join(`${os.EOL}${os.EOL}******************************${os.EOL}${os.EOL}`);
