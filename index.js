@@ -353,8 +353,8 @@ taim('Total Processing', bluebird.all([
         }).sortBy(licenseInfo => {
             return licenseInfo.name.toLowerCase();
         }).map(licenseInfo => {
-            return [licenseInfo.name,`${licenseInfo.version} <${licenseInfo.url}>`,
-                    licenseInfo.licenseText || `license: ${licenseInfo.license}${os.EOL}authors: ${licenseInfo.authors}`].join(os.EOL);
+            return [licenseInfo.name,`${licenseInfo.version} <${licenseInfo.url}>`, `authors: ${licenseInfo.authors}`,
+                    `license: ${licenseInfo.license}`,  licenseInfo.licenseText || ''].join(os.EOL);
         }).value();
 
         var attribution = attributionSequence.join(`${os.EOL}${os.EOL}******************************${os.EOL}${os.EOL}`);
