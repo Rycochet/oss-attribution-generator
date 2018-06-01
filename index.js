@@ -359,8 +359,17 @@ taim('Total Processing', bluebird.all([
             return licenseInfo.name.toLowerCase();
         }).map(licenseInfo => {
             let licenseText = options.format === 'all' ? licenseInfo.licenseText : '';
-             if (options.format = 'exclude' && licenseInfo.license == 'MIT') {
-                 return '';
+             if (options.format = 'exclude' && (licenseInfo.license == 'MIT' 
+                                                || licenseInfo.license == 'MIT*'
+                                                || licenseInfo.license == '(MIT OR Apache-2.0)'
+                                                || licenseInfo.license == 'Apache-2.0'
+                                                || licenseInfo.license ==  'BSD-3-Clause'
+                                                || licenseInfo.license ==  'BSD-2-Clause'
+                                                || licenseInfo.license ==  'BSD'
+                                                || licenseInfo.license ==  'BSD*' 
+                                                || licenseInfo.license ==  '(BSD-3-Clause OR GPL-2.0)'
+                                                ) {
+                 return [];
              }
             return [licenseInfo.name,`${licenseInfo.version} <${licenseInfo.url}>`, `authors: ${licenseInfo.authors}`,
                     `license: ${licenseInfo.license}`,  licenseText || ''].join(os.EOL);
