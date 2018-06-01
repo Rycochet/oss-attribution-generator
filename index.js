@@ -141,8 +141,8 @@ function getNpmLicenses() {
                 if (packagePath && packagePath[0]) {
                   packageJson = jetpack.read(packagePath[0], 'json');
                 } else {
-
-                  return Promise.reject(`${package.name}: unable to locate package.json`);
+                  return '';
+                  //return Promise.reject(`${package.name}: unable to locate package.json`);
                 }
       
                 console.log('processing', packageJson.name, 'for authors and licenseText');
@@ -372,7 +372,8 @@ taim('Total Processing', bluebird.all([
             || licenseInfo.license ==  '(BSD-3-Clause OR GPL-2.0)'
             || licenseInfo.license == 'BSD-3-Clause OR MIT'
             || licenseInfo.license == 'ISC'
-            || licenseInfo.license == '(BSD-2-Clause OR MIT OR Apache-2.0)');
+            || licenseInfo.license == '(BSD-2-Clause OR MIT OR Apache-2.0)'
+            || licenseInfo.license == 'CC-BY-4.0'        );
         })
         
         .sortBy(licenseInfo => {
