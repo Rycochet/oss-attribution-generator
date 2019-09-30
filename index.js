@@ -362,7 +362,7 @@ taim('Total Processing', bluebird.all([
     })
     .then((licenseInfos) => {
         var attributionSequence = _(licenseInfos).filter(licenseInfo => {
-            return !licenseInfo.ignore && licenseInfo.name != undefined;
+            return licenseInfo && !licenseInfo.ignore && licenseInfo.name != undefined;
         }).filter(licenseInfo => {
             if (options.format != 'exclude') {
                 return true;
