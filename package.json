@@ -1,40 +1,47 @@
 {
-  "dependencies": {
-    "bluebird": "^3.5.5",
-    "bower": "^1.8.8",
-    "bower-json": "^0.8.1",
-    "bower-license": "^0.4.4",
-    "fs-jetpack": "^2.2.2",
-    "license-checker": "^25.0.1",
-    "lodash": "^4.17.15",
-    "spdx-licenses": "^1.0.0",
-    "yargs": "^14.0.0",
-    "taim": "^1.1.0"
-  },
-  "name": "oss-attribution-generator",
-  "description": "utility to parse bower and npm packages used in a project and generate an attribution file to include in your product",
-  "version": "1.7.1",
-  "bin": {
-    "generate-attribution": "index.js"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/zumwald/oss-attribution-generator.git"
-  },
-  "keywords": [
-    "license",
-    "attribution",
-    "npm",
-    "bower",
-    "credit"
-  ],
-  "author": "Dan Zumwalt",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/zumwald/oss-attribution-generator/issues"
-  },
-  "homepage": "https://github.com/zumwald/oss-attribution-generator#readme"
+    "dependencies": {
+        "bluebird": "^3.5.5",
+        "bower": "^1.8.8",
+        "bower-json": "^0.8.1",
+        "bower-license": "^0.4.4",
+        "fs-jetpack": "^2.2.2",
+        "license-checker": "^25.0.1",
+        "lodash": "^4.17.15",
+        "spdx-licenses": "^1.0.0",
+        "yargs": "^14.0.0",
+        "taim": "^1.1.0"
+    },
+    "name": "oss-attribution-generator",
+    "description": "utility to parse bower and npm packages used in a project and generate an attribution file to include in your product",
+    "version": "1.8.0",
+    "bin": {
+        "generate-attribution": "index.js"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/zumwald/oss-attribution-generator.git"
+    },
+    "keywords": [
+        "license",
+        "attribution",
+        "npm",
+        "bower",
+        "credit"
+    ],
+    "authors": [
+        "Dan Zumwalt (https://github.com/zumwald)",
+        "Avi Haiat (https://github.com/thaiat)",
+        "Ryc O'Chet (https://github.com/Rycochet)"
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/zumwald/oss-attribution-generator/issues"
+    },
+    "homepage": "https://github.com/zumwald/oss-attribution-generator#readme",
+    "devDependencies": {
+        "@types/node": "~12.7.8"
+    }
 }
