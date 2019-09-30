@@ -354,6 +354,15 @@ taim('Total Processing', bluebird.all([
             o = _.defaultsDeep(userOverrides, o);
         }
 
+        // remove anything that we really don't want a license for
+        for (var packageName in o) {
+            var licenseInfo = o[packageName];
+
+            if (!licenseInfo || licenseInfo.ignore) {
+                delete o[packageName];
+            }
+        }
+
         return o;
     })
     .catch(e => {
@@ -361,36 +370,35 @@ taim('Total Processing', bluebird.all([
         process.exit(1);
     })
     .then((licenseInfos) => {
-        var attributionSequence = _(licenseInfos).filter(licenseInfo => {
-            return licenseInfo && !licenseInfo.ignore && licenseInfo.name != undefined;
-        }).filter(licenseInfo => {
-            if (options.format != 'exclude') {
-                return true;
-            }
-            return !(licenseInfo.license == 'MIT'
-                || licenseInfo.license == 'MIT*'
-                || licenseInfo.license == '(MIT OR Apache-2.0)'
-                || licenseInfo.license == 'MIT,Apache2'
-                || licenseInfo.license == 'Apache-2.0'
-                || licenseInfo.license == 'Apache*'
-                || licenseInfo.license == 'BSD-3-Clause'
-                || licenseInfo.license == 'BSD-2-Clause'
-                || licenseInfo.license == 'BSD'
-                || licenseInfo.license == 'BSD*'
-                || licenseInfo.license == '(BSD-3-Clause OR GPL-2.0)'
-                || licenseInfo.license == 'BSD-3-Clause OR MIT'
-                || licenseInfo.license == 'ISC'
-                || licenseInfo.license == '(BSD-2-Clause OR MIT OR Apache-2.0)'
-                || licenseInfo.license == 'CC-BY-4.0');
-        })
-
+        var attributionSequence = _(licenseInfos)
+            .filter(licenseInfo => {
+                return licenseInfo.name != undefined
+                    && (options.format !== 'exclude'
+                        || !(licenseInfo.license === 'MIT'
+                            || licenseInfo.license === 'MIT*'
+                            || licenseInfo.license === '(MIT OR Apache-2.0)'
+                            || licenseInfo.license === 'MIT,Apache2'
+                            || licenseInfo.license === 'Apache-2.0'
+                            || licenseInfo.license === 'Apache*'
+                            || licenseInfo.license === 'BSD-3-Clause'
+                            || licenseInfo.license === 'BSD-2-Clause'
+                            || licenseInfo.license === 'BSD'
+                            || licenseInfo.license === 'BSD*'
+                            || licenseInfo.license === '(BSD-3-Clause OR GPL-2.0)'
+                            || licenseInfo.license === 'BSD-3-Clause OR MIT'
+                            || licenseInfo.license === 'ISC'
+                            || licenseInfo.license === '(BSD-2-Clause OR MIT OR Apache-2.0)'
+                            || licenseInfo.license === 'CC-BY-4.0'));
+            })
             .sortBy(licenseInfo => {
                 return licenseInfo.name.toLowerCase();
-            }).map(licenseInfo => {
+            })
+            .map(licenseInfo => {
                 let licenseText = options.format === 'all' ? licenseInfo.licenseText : '';
                 return [licenseInfo.name, `${licenseInfo.version} <${licenseInfo.url}>`, `authors: ${licenseInfo.authors}`,
                 `license: ${licenseInfo.license}`, licenseText || ''].join(os.EOL);
-            }).value();
+            })
+            .value();
         attributionSequence = _.compact(attributionSequence);
         var attribution = attributionSequence.join(`${os.EOL}${os.EOL}******************************${os.EOL}${os.EOL}`);
         var headerPath = path.join(options.outputDir, 'header.txt');

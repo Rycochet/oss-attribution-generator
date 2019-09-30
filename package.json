@@ -8,12 +8,12 @@
         "license-checker": "^25.0.1",
         "lodash": "^4.17.15",
         "spdx-licenses": "^1.0.0",
-        "yargs": "^14.0.0",
-        "taim": "^1.1.0"
+        "taim": "^1.1.0",
+        "yargs": "^14.0.0"
     },
     "name": "oss-attribution-generator",
     "description": "utility to parse bower and npm packages used in a project and generate an attribution file to include in your product",
-    "version": "1.8.0",
+    "version": "1.8.1",
     "bin": {
         "generate-attribution": "index.js"
     },
